@@ -8,20 +8,43 @@ use App\Models\Project;
 
 class ProjectController extends Controller
 {
-    public function store(Request $request){
-        $data = $request->validate([
-            'name' => 'required',
-            'description' => 'required',
-            'status' => 'required|in:Pending,Ongoing,Completed',
-            'start_date' => 'required|date',
-            'end_date' => 'required|date|after_or_equal:start_date',
-            'priority' => 'required|in:LOW,MEDIUM,HIGH',
-        ]);
-        $data['user_id'] = Auth::id();
-        
-        if (Project::create($data)){
+    public function store(Request $request)
+    {
+
+        try {
+            $data = $request->validate([
+                'name' => 'required',
+                'description' => 'required',
+                'status' => 'required|in:Pending,Ongoing,Completed',
+                'start_date' => 'required|date',
+                'end_date' => 'required|date|after_or_equal:start_date',
+                'priority' => 'required|in:LOW,MEDIUM,HIGH',
+            ]);
+            $data['user_id'] = Auth::id();
+
+            Project::create($data);
             return redirect('/projects')->with('success', 'Project created successfully!');
+        } catch (\Exception $e) {
+            return redirect('/projects')->with('error', 'Failed to create project. Please try again.');
         }
-        
+    }
+
+    public function update(Request $request, $id)
+    {
+        $project = Project::findOrFail($id);
+        try {
+            $data = $request->validate([
+                'name' => 'required',
+                'description' => 'required',
+                'status' => 'required|in:Pending,Ongoing,Completed',
+                'start_date' => 'required|date',
+                'end_date' => 'required|date|after_or_equal:start_date',
+                'priority' => 'required|in:LOW,MEDIUM,HIGH',
+            ]);
+            $project->update($data);
+            return redirect('/projects')->with('success', 'Project updated successfully!');
+        } catch (\Exception $e) {
+            return redirect('/projects')->with('error', 'Failed to update project. Please try again.');
+        }
     }
 }
