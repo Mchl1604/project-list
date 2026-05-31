@@ -8,6 +8,14 @@ use App\Models\Project;
 
 class ProjectController extends Controller
 {
+    public function index()
+    {
+        $userId = Auth::id();
+        $projects = Project::where('user_id', '=', $userId, 'and')->get();
+
+        return view('Pages.projects', ['projects' => $projects]);
+    }
+
     public function store(Request $request)
     {
 
@@ -15,7 +23,7 @@ class ProjectController extends Controller
             $data = $request->validate([
                 'name' => 'required',
                 'description' => 'required',
-                'status' => 'required|in:Pending,Ongoing,Completed',
+                'status' => 'required|in:Pending,Ongoing,Completed,Cancelled',
                 'start_date' => 'required|date',
                 'end_date' => 'required|date|after_or_equal:start_date',
                 'priority' => 'required|in:LOW,MEDIUM,HIGH',
@@ -25,18 +33,19 @@ class ProjectController extends Controller
             Project::create($data);
             return redirect('/projects')->with('success', 'Project created successfully!');
         } catch (\Exception $e) {
-            return redirect('/projects')->with('error', 'Failed to create project. Please try again.');
+            return redirect('/projects')->with('error', $e->getMessage());
         }
     }
 
     public function update(Request $request, $id)
     {
-        $project = Project::findOrFail($id);
         try {
+            $project = Project::where('user_id', '=', Auth::id(), 'and')->findOrFail($id);
+
             $data = $request->validate([
                 'name' => 'required',
                 'description' => 'required',
-                'status' => 'required|in:Pending,Ongoing,Completed',
+                'status' => 'required|in:Pending,Ongoing,Completed,Cancelled',
                 'start_date' => 'required|date',
                 'end_date' => 'required|date|after_or_equal:start_date',
                 'priority' => 'required|in:LOW,MEDIUM,HIGH',
@@ -44,7 +53,20 @@ class ProjectController extends Controller
             $project->update($data);
             return redirect('/projects')->with('success', 'Project updated successfully!');
         } catch (\Exception $e) {
-            return redirect('/projects')->with('error', 'Failed to update project. Please try again.');
+            return redirect('/projects')->with('error', $e->getMessage());
+        }
+    }
+
+    public function destroy($id)
+    {
+        try {
+            $project = Project::where('user_id', '=', Auth::id(), 'and')->findOrFail($id);
+
+            $project->delete();
+
+            return redirect('/projects')->with('success', 'Project deleted successfully!');
+        } catch (\Exception $e) {
+            return redirect('/projects')->with('error', $e->getMessage());
         }
     }
 }

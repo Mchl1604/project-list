@@ -1,3 +1,4 @@
+s
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,8 +16,9 @@
     @php
         $user = auth()->user();
         $userName = $user?->name ?? 'Guest';
-        $avatarUrl =
-            'https://ui-avatars.com/api/?name=' . urlencode($userName) . '&background=0B0F0C&color=FFFFFF&size=80';
+        $avatarUrl = $user?->profile_image
+            ? asset($user->profile_image)
+            : 'https://ui-avatars.com/api/?name=' . urlencode($userName) . '&background=0B0F0C&color=FFFFFF&size=80';
     @endphp
 
     <nav class="navbar navbar-expand-lg navbar-projecthub sticky-top">
@@ -34,17 +36,23 @@
 
                     <ul class="navbar-nav navbar-center-nav align-items-lg-center gap-lg-2">
                         <li class="nav-item">
-                            <a class="nav-link nav-action" href="{{ url('/dashboard') }}">
+                            <a class="nav-link nav-action {{ request()->routeIs('dashboard.index') ? 'active' : '' }}"
+                                href="{{ url('/dashboard') }}"
+                                @if (request()->routeIs('dashboard.index')) aria-current="page" @endif>
                                 <i class="bi bi-speedometer2 me-2"></i>Dashboard
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link nav-action" href="{{ url('/projects') }}">
+                            <a class="nav-link nav-action {{ request()->routeIs('projects.index') ? 'active' : '' }}"
+                                href="{{ url('/projects') }}"
+                                @if (request()->routeIs('projects.index')) aria-current="page" @endif>
                                 <i class="bi bi-kanban me-2"></i>Projects
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link nav-action" href="#users">
+                             <a class="nav-link nav-action {{ request()->routeIs('users.index') ? 'active' : '' }}"
+                                href="{{ url('/users') }}"
+                                @if (request()->routeIs('users.index')) aria-current="page" @endif>
                                 <i class="bi bi-people me-2"></i>Users
                             </a>
                         </li>
@@ -62,7 +70,8 @@
 
                             <ul class="dropdown-menu dropdown-menu-end profile-menu">
                                 <li>
-                                    <a class="dropdown-item" href="#edit-profile">
+                                    <a class="dropdown-item" href="{{ url('/profile') }}"
+                                        @if (request()->routeIs('profile')) aria-current="page" @endif>
                                         <i class="bi bi-pencil-square me-2"></i>Edit Profile
                                     </a>
                                 </li>

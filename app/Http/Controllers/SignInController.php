@@ -42,7 +42,7 @@ class SignInController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-    return redirect('/dashboard');
+            return redirect()->route('dashboard.index');
         }
 
         return back()->withErrors(['email' => 'Invalid credentials'])->withInput();
