@@ -56,14 +56,14 @@
                 label: 'Project Status',
                 data: [{{ $pendingCount }}, {{ $ongoingCount }}, {{ $completedCount }}],
                 backgroundColor: [
-                    'rgba(255, 99, 132, 0.6)',
-                    'rgba(54, 162, 235, 0.6)',
-                    'rgba(75, 192, 192, 0.6)'
+                    'rgba(255, 193, 7, 0.75)',
+                    'rgba(13, 202, 240, 0.75)',
+                    'rgba(25, 135, 84, 0.75)'
                 ],
                 borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(75, 192, 192, 1)'
+                    'rgba(255, 193, 7, 1)',
+                    'rgba(13, 202, 240, 1)',
+                    'rgba(25, 135, 84, 1)'
                 ],
                 borderWidth: 1
             }]
@@ -109,8 +109,8 @@
             datasets: [{
                 label: 'Completed Projects',
                 data: @json($completionMonth->pluck('count')),
-                borderColor: 'rgba(75, 192, 192, 1)',
-                backgroundColor: 'rgba(75, 192, 192, 0.18)',
+                borderColor: 'rgba(25, 135, 84, 1)',
+                backgroundColor: 'rgba(25, 135, 84, 0.75)',
                 borderWidth: 2,
                 tension: 0.1,
                 fill: true,

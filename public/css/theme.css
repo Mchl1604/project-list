@@ -56,7 +56,6 @@ body {
 .navbar-profile-wrap {
   display: flex;
   justify-content: flex-end;
-  
 }
 
 .navbar-projecthub .container-fluid {
@@ -81,6 +80,45 @@ body {
   .navbar-profile-wrap {
     position: relative;
     z-index: 1;
+  }
+}
+
+@media (max-width: 991.98px) {
+  .navbar-layout {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+    padding-top: 1rem;
+  }
+
+  .navbar-center-nav {
+    width: 100%;
+  }
+
+  .navbar-center-nav .nav-link {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .navbar-profile-wrap {
+    width: 100%;
+    justify-content: flex-start;
+    margin-top: 0.25rem;
+  }
+
+  .profile-dropdown {
+    width: 100%;
+  }
+
+  .profile-toggle {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .profile-menu {
+    width: 100%;
+    left: 0 !important;
+    right: auto !important;
   }
 }
 
@@ -155,6 +193,98 @@ body {
 }
 
 
+.modal-backdrop.show {
+  opacity: 0.78;
+}
+.modal {
+  --bs-modal-bg: #07110b;
+  --bs-modal-color: #eaf6ef;
+  --bs-modal-border-color: rgba(25, 135, 84, 0.24);
+  --bs-modal-header-border-color: rgba(25, 135, 84, 0.18);
+  --bs-modal-footer-border-color: rgba(25, 135, 84, 0.18);
+  --bs-modal-header-padding: 1.25rem 1.5rem 1rem;
+  --bs-modal-padding: 1.5rem;
+}
+.modal-dialog {
+  filter: drop-shadow(0 24px 48px rgba(0, 0, 0, 0.45));
+}
+.modal-content {
+  background: linear-gradient(180deg, rgba(7, 17, 11, 0.98), rgba(5, 12, 8, 0.98));
+  color: #eaf6ef;
+  border: 1px solid rgba(25, 135, 84, 0.28);
+  border-radius: 1.25rem;
+  overflow: hidden;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+}
+.modal-header {
+  background: linear-gradient(90deg, rgba(25, 135, 84, 0.18), rgba(25, 135, 84, 0.04));
+  border-bottom: 1px solid rgba(25, 135, 84, 0.18);
+}
+.modal-footer {
+  background: rgba(255, 255, 255, 0.02);
+  border-top: 1px solid rgba(25, 135, 84, 0.18);
+}
+.modal-title {
+  color: #f5fff8;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+.modal-body {
+  color: #d4e9db;
+}
+.modal .form-label,
+.modal .form-text,
+.modal .text-muted {
+  color: #b8d3c2 !important;
+}
+.modal .form-control,
+.modal .form-select {
+  background-color: rgba(255, 255, 255, 0.04);
+  color: #f5fff8;
+  border-color: rgba(25, 135, 84, 0.28);
+}
+.modal .form-select {
+  color-scheme: dark;
+  background-image: none;
+}
+.modal .form-select option {
+  background-color: #07110b;
+  color: #f5fff8;
+}
+.modal .form-select optgroup {
+  background-color: #07110b;
+  color: #f5fff8;
+}
+.modal .form-control::placeholder {
+  color: rgba(245, 255, 248, 0.45);
+}
+.modal .form-control:focus,
+.modal .form-select:focus {
+  background-color: rgba(255, 255, 255, 0.06);
+  color: #f5fff8;
+  border-color: #198754;
+  box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.22);
+}
+.modal .btn-secondary {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #eaf6ef;
+}
+.modal .btn-secondary:hover,
+.modal .btn-secondary:focus {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.16);
+  color: #ffffff;
+}
+.modal .btn-close {
+  filter: invert(1) grayscale(100%);
+  opacity: 0.75;
+}
+.modal .btn-close:hover,
+.modal .btn-close:focus {
+  opacity: 1;
+  box-shadow: none;
+}
 .status-chart-wrap canvas {
   width: 100% !important;
   height: 100% !important;

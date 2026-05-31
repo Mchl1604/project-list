@@ -1,4 +1,3 @@
-s
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,9 +15,10 @@ s
     @php
         $user = auth()->user();
         $userName = $user?->name ?? 'Guest';
-        $avatarUrl = $user?->profile_image
+        $userProfile = $user?->profile_image
             ? asset($user->profile_image)
-            : 'https://ui-avatars.com/api/?name=' . urlencode($userName) . '&background=0B0F0C&color=FFFFFF&size=80';
+            : asset($user->profile_image ?? asset('profileImage/defaultProfile.jpg'));
+        
     @endphp
 
     <nav class="navbar navbar-expand-lg navbar-projecthub sticky-top">
@@ -63,7 +63,7 @@ s
                             <button class="nav-link dropdown-toggle profile-toggle" type="button"
                                 data-bs-toggle="dropdown">
                                 <span class="profile-avatar-wrap">
-                                    <img src="{{ $avatarUrl }}" alt="{{ $userName }}" class="profile-avatar">
+                                    <img src="{{ $userProfile }}" alt="{{ $userName }}" class="profile-avatar">
                                 </span>
                                 <span class="profile-name">{{ $userName }}</span>
                             </button>

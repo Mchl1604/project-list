@@ -54,7 +54,8 @@ public function updateProfilePicture(Request $request)
 
     public function updateProfileInformation(Request $request)
     {
-        $user = Auth::user();
+        try{
+            $user = Auth::user();
 
         $request->validate([
             'name'         => 'sometimes|required|unique:users,name,' . $user->id,
@@ -80,5 +81,10 @@ public function updateProfilePicture(Request $request)
         $user->update($data);
 
         return redirect()->route('profile')->with('success', 'Profile information updated successfully!');
+        }
+        catch(\Exception $e){
+            return redirect()->route('profile')->with('error',  $e->getMessage());
+        }
+        
     }
 }

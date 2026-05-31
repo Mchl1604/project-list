@@ -3,7 +3,19 @@
 @section('title', 'Users')
 
 @section('content')
-    <h2 class="green-font mt-5">User Management</h2>
+    <div class="mt-5 mb-3 d-flex flex-wrap justify-content-between align-items-start gap-3">
+        <div>
+            <h2 class="green-font mb-1">User Management</h2>
+            <p class="text-white mb-0">Manage all registered users in the system. You can edit user information or delete users as needed.</p>
+        </div>
+        <div>
+            <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addUserModal">
+                <i class="bi bi-plus-lg"></i> Add New User
+            </button>
+        </div>
+    </div>
+    
+
     
     <table class="table table-dark table-bordered border-success">
         <thead>
@@ -87,8 +99,43 @@
             </div>
         </div>
         
-
-      
     @endforeach
 
+    <div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form method="POST" action="{{ route('users.store') }}">
+                    @csrf
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addUserModalLabel">Add New User</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body
+                        ">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="name" name="name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password" name="password" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password_confirmation" class="form-label">Confirm Password</label>
+                            <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-success">Add User</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
 @endsection

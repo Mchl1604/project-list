@@ -21,7 +21,8 @@ class SignInController extends Controller
 
     public function registerUser(Request $request)
     {
-        $data = $request->validate([
+        try{
+            $data = $request->validate([
             'name' => 'required|unique:users,name',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6',
@@ -30,7 +31,11 @@ class SignInController extends Controller
         $data['password'] = Hash::make($data['password']);
 
         User::create($data);
-        return redirect()->route('login.index');
+        return redirect()->route('login.index')->with('success', 'Registration successful! Please log in.');
+        }
+        catch(\Exception $e){
+            return back()->withErrors(['error' => $e->getMessage()])->withInput();
+        }
     }
 
     public function loginUser(Request $request)
